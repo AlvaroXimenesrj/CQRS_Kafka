@@ -1,11 +1,11 @@
 version: "3.4"
 
-services:
+services:  
   zookeeper:
     image: bitnami/zookeeper
     restart: always
     ports:
-      - "2181:2181"
+      - "2182:2181"
     volumes:
       - "zookeeper_data:/bitnami"
     environment:
@@ -13,7 +13,7 @@ services:
   kafka:
     image: bitnami/kafka
     ports:
-      - "9092:9092"
+      - "9093:9092"
     restart: always
     volumes:
       - "kafka_data:/bitnami"
@@ -35,4 +35,4 @@ volumes:
 networks:
   default:
     external:
-      name: mydockernetwork
+      name: cqrskafkanetwork
