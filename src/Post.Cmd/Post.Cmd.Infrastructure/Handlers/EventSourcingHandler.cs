@@ -51,10 +51,11 @@ namespace Post.Cmd.Infrastructure.Handlers
                 }
             }
         }
-
+        // this save, seve all commands (EditedCommentCommand... NewPostCommand etc...)
         public async Task SaveAsync(AggregateRoot aggregate)
         {
             await _eventStore.SaveEventsAsync(aggregate.Id, aggregate.GetUncommittedChanges(), aggregate.Version);
+            // delete events because the events was send to KAFKA TOPIC with success
             aggregate.MarkChangesAsCommitted();
         }
     }

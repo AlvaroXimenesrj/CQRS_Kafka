@@ -15,7 +15,7 @@ namespace Post.Cmd.Api.Commands
         public async Task HandleAsync(NewPostCommand command)
         {
             var aggregate = new PostAggregate(command.Id, command.Author, command.Message);
-
+            // send to save in kafka topic
             await _eventSourcingHandler.SaveAsync(aggregate);
         }
 

@@ -43,7 +43,7 @@ namespace Post.Cmd.Infrastructure.Stores
             var eventStream = await _eventStoreRepository.FindByAggregateId(aggregateId);
 
             if (expectedVersion != -1 && eventStream[^1].Version != expectedVersion)
-                throw new ConcurrencyException();
+                throw new ConcurrencyException(); // prevent to dont save event with same existing version in mongoDb
 
             var version = expectedVersion;
 
@@ -63,7 +63,7 @@ namespace Post.Cmd.Infrastructure.Stores
                 };
 
                 await _eventStoreRepository.SaveAsync(eventModel);
-
+                // get topic to send message that will be comsume to background app for save message in sql server
                 var topic = Environment.GetEnvironmentVariable("KAFKA_TOPIC");
                 await _eventProducer.ProduceAsync(topic, @event);
             }

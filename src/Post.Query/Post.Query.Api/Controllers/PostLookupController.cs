@@ -1,5 +1,6 @@
 using CQRS.Core.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using Post.Common.DTOs;
 using Post.Query.Api.DTOs;
 using Post.Query.Api.Queries;
@@ -102,6 +103,20 @@ namespace Post.Query.Api.Controllers
                 return ErrorResponse(ex, SAFE_ERROR_MESSAGE);
             }
         }
+
+        [HttpGet("ConvertUIIDtoGuid")]
+        public async Task<ActionResult> ConvertUUIDGuid()
+        {
+            // luuid in mongo db:
+            var luuid = new Guid("E225D96A-7502-3A41-A6CF-76260AEE4088");
+            // convert luuid to Guid
+            var bytes = GuidConverter.ToBytes(luuid, GuidRepresentation.PythonLegacy);
+            var csuuid = new Guid(bytes);
+            
+            return Ok();
+        }
+
+      
 
         private ActionResult NormalResponse(List<PostEntity> posts)
         {
