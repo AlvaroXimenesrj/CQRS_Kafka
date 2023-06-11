@@ -9,3 +9,17 @@ docker-compose -p cqrskafka up -d<br>
 <br>
 Studio 3T:<br>
 https://studio3t.com/
+<br>
+Redis:<br>
+docker run -d --cap-add sys_resource --name rp -p 8443:8443 -p 9443:9443 -p 12000:12000 redislabs/redis
+<br>
+Redis Desktop:<br>
+https://docs.resp.app/en/latest/install/
+<br>
+RabbitMq:<br>
+docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 rabbitmq:3-management
+<br>
+Rabbit manager:<br>
+http://localhost:15672/
+<br>
+login and password: guest
